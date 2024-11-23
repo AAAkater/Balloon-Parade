@@ -2,18 +2,16 @@ import re
 import socket
 from typing import List
 
+from app.config import setting
 from app.log import logger
 
 ac_users = {}
 
 
 def tcp_client():
-    host = "117.72.32.78"
-    port = 6789
-
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    client_socket.connect((host, port))
-    print("监听开启")
+    client_socket.connect((setting.BALLON_HOST, setting.BALLOON_PORT))
+    logger.info("监听开启")
 
     try:
         while True:
@@ -39,7 +37,7 @@ def tcp_client():
             )
 
     except KeyboardInterrupt:
-        print("关闭监听")
+        logger.info("监听关闭")
     finally:
         client_socket.close()
 
