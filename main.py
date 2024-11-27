@@ -3,6 +3,7 @@ import socket
 from typing import List
 
 from app.config import setting
+from app.device import print_text
 from app.log import logger
 
 ac_users = {}
@@ -32,6 +33,9 @@ def tcp_client():
                 continue
             ac_users[user_id].append(problem_id)
 
+            print_text(
+                f"同学:{user_id} ,第一次成功ac了题目:{problem_id} ,提交时间为:{ac_time}"
+            )
             logger.info(
                 f"同学:{user_id} ,第一次成功ac了题目:{problem_id} ,提交时间为:{ac_time}"
             )
