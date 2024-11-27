@@ -10,7 +10,7 @@ ac_users = {}
 
 def tcp_client():
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    client_socket.connect((setting.BALLON_HOST, setting.BALLOON_PORT))
+    client_socket.connect((setting.BALLOON_HOST, setting.BALLOON_PORT))
     logger.info("监听开启")
 
     try:
