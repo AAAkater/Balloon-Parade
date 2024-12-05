@@ -2,7 +2,7 @@ import win32print
 import win32ui
 
 
-def print_text(text, paper_width_mm=58):
+def send_to_printer(text, paper_width_mm=58):
     printer_name = win32print.GetDefaultPrinter()  # 获取默认打印机
     hPrinter = win32print.OpenPrinter(printer_name)
     try:
@@ -59,4 +59,4 @@ def print_text(text, paper_width_mm=58):
 
 
 if __name__ == "__main__":
-    print_text("你好，世界！这是一个打印示例。")
+    send_to_printer("你好，世界！这是一个打印示例。")

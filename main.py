@@ -3,10 +3,13 @@ import socket
 from typing import List
 
 from app.config import setting
-from app.device import print_text
+from app.device import send_to_printer
 from app.log import logger
+from app.utils import get_seat
 
 ac_users = {}
+
+log_file_path = "./log/info.log"
 
 
 def tcp_client():
@@ -15,6 +18,7 @@ def tcp_client():
     logger.info("监听开启")
 
     try:
+        # with open("./log/info.log", "a", encoding="utf-8") as f:
         while True:
             data = client_socket.recv(1024)
             if not data:
@@ -32,13 +36,14 @@ def tcp_client():
                 logger.error("重复提交")
                 continue
             ac_users[user_id].append(problem_id)
-
-            print_text(
-                f"同学:{user_id} ,第一次成功ac了题目:{problem_id} ,提交时间为:{ac_time}"
-            )
-            logger.info(
-                f"同学:{user_id} ,第一次成功ac了题目:{problem_id} ,提交时间为:{ac_time}"
-            )
+            # 获取座位
+            # seat_info = get_seat(user_id)
+            # 日志
+            log_info = f"同学:{user_id} ,题目:{problem_id} ,时间:{ac_time},座位:"
+            # 持久化
+            logger.info(log_info)
+            send_to_printer(log_info)
+            # f.write(log_info + "\n")
 
     except KeyboardInterrupt:
         logger.info("监听关闭")
