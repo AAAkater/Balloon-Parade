@@ -5,7 +5,7 @@ from typing import List
 from app.config import setting
 from app.device import send_to_printer
 from app.log import logger
-from app.utils import get_seat
+from app.utils import get_user_info_by_account
 
 ac_users = {}
 
@@ -37,9 +37,9 @@ def tcp_client():
                 continue
             ac_users[user_id].append(problem_id)
             # 获取座位
-            # seat_info = get_seat(user_id)
+            info = get_user_info_by_account(user_id)
             # 日志
-            log_info = f"同学:{user_id} ,题目:{problem_id} ,时间:{ac_time},座位:"
+            log_info = f"题目:{problem_id} , {info}, 时间:{ac_time}"
             # 持久化
             logger.info(log_info)
             send_to_printer(log_info)
